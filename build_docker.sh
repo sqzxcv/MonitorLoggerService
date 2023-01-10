@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=0.0.10
+TAG=0.0.11
 docker build -t sqzxcv/monitor_logger:$TAG .
 docker push sqzxcv/monitor_logger:$TAG
 
