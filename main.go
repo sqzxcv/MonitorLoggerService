@@ -21,7 +21,7 @@ func main() {
     glog.SetRollingDaily(logsDir, "ss_backend.log", false)
     glog.Info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> App 启动成功 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     //var configPath = flag.String("c", "", "配置文件地址")
-    var port = flag.Int("port", 9080, "服务监听端口")
+    var port = flag.Int("port", 80, "服务监听端口")
     var versionFlag = flag.Bool("v", false, "输出版本号")
     flag.Parse()
     if *versionFlag {
