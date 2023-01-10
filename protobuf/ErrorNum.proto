@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package model;
+option go_package = ".;model";
+
+enum ErrNum {
+    OK = 0; // 请求成功
+    PbEncode    = 9502;     // PB加密出错
+    PbDecode = 9503; // pb 解密出错
+    ParamErrCode = 9504; // 参数错误
+}

@@ -1,0 +1,127 @@
+
+syntax = "proto3";
+
+package model;
+option go_package = ".;model";
+
+
+message DeviceBase
+{
+  string UUID = 1;
+  int32  ScreenWith = 2;//屏幕宽度
+  int32  ScreenHight= 3;//屏幕高度
+  float  ScreenDensity = 4;//屏幕密度
+  string IIDFA     = 5;//广告定位标志
+  string BundleVer = 6;//Bundle版本
+  string PackageName = 7;//包名
+  string Signature = 8;//签名
+  string OsVersion = 9;//系统版本
+  string Factory = 10;//生产厂商
+  string Name = 11;//手机名称
+  int32  VersionCode = 12;
+  string VersionName = 13;
+  string BuildCode = 14;
+  string ChannelId = 15; //渠道id
+  string CityId = 16;
+  double Longitude = 17;
+  double Latitude = 18;
+  string OS = 19;	//apple;android;
+  string Net = 20;	//网络环境
+  int32 ProtoVer = 21; // 客户端协议版本,目前填1
+  string i18n = 22; // 当前系统语言代码;
+  string DevName = 23; // 用户自定义的设备名, 展示用,Cli-Svr使用 uuid;
+  int32  DevType = 24; // 设备类型，即原有的，OS，String
+}
+
+message DeviceBaseS
+{
+  repeated DeviceBase Devs = 1;
+}
+
+// 请求
+message ReqBase
+{
+  DeviceBase Dev 	    = 1;   // 设备信息
+  uint64     UserId   = 2;   // 用户id
+  uint32     Cmd 		= 3;   // 命令字
+  uint64     MsgId 	= 4;   // BussnissId，业务号，客户端发起，原样返回
+  string     SessionId = 5;  // SessionId
+  bytes      PbBody    = 6;  // 数据内容
+  string     MsgCtx 	 = 7;  // 请求描述
+  string	   check = 8; // 接口鉴权校验
+}
+
+// 响应
+message RetBase
+{
+  int32    Code = 1; // 错误码
+  uint64   UserId = 2; // 用户id
+  uint32   Cmd = 3; // 命令字
+  uint64   MsgId = 4; // BussnissId，业务号，客户端发起，原样返回
+  bytes    PbBody = 6; // 数据内容
+  string   MsgCtx = 7; // 错误描述
+  int64  ServerTime = 8; // 服务器时间
+  string   DownloadUrl = 9; // 下载链接
+}
+
+message ReqFolderInfo {
+  string path = 1;
+}
+
+message FileInfo {
+  string name = 1;
+  int64 modify_time = 2;
+  int64 size = 3;
+  repeated FileInfo children = 4;
+  bool isDir = 5;
+  string absolutePath = 6;
+  LogFormatterConfig formatter = 7; // 日志文件的解析格式
+  bool exist = 8; // 主要本地使用, 本地是否存在该文件; 服务器返回时, 默认为false
+}
+
+message Error {
+  int32 code  = 1; // 错误码
+  string msg = 2; // 错误描述
+}
+
+message UtilRet {
+  int32  RetCode  = 1;  // 返回码
+  int64  RetTime  = 2;  // 后台操作时间; // 错误码
+  string RetTxt 	= 3;  // 返回文案
+}
+
+message UtilReq {
+
+}
+
+message LogFormatterConfig {
+  string  timeFormatterRegExp = 1; // logger 时间字段的正则表达式.
+  string verboseLineRegExp = 2;
+  string debugLineRegExp = 3;
+  string infoLineRegExp = 4; // 日志每行开头的前缀格式(正则表达式)
+  string warnLineRegExp = 5;
+  string errorLineRegExp = 6;
+  string wtfLineRegExp = 7;
+  string normalLineRegExp = 8;
+  int64 verboseColor = 9;
+  int64 debugColor = 10;
+  int64 infoColor = 11;
+  int64 warnColor = 12;
+  int64 errorColor = 13;
+  int64 wtfColor = 14;
+  int64 normalColor = 15;
+//  int32  splitType = 3; // split的位置, 0=每行开头, 1= 每行结尾
+  string name = 16; // 样式名称
+  int64  modifyTime = 17;
+}
+
+message MonitorServer {
+  string host = 1;
+  int32  port = 2;
+  string path = 3;
+  string name = 4;
+}
+
+message MonitorServices {
+  repeated MonitorServer services = 1;
+}
